@@ -100,7 +100,7 @@ class Scroll {
 
         // 改变downHight， 这个参数关乎逻辑
         this.downHight = translateY;
-        
+
         if (!this.options.down.isScrollCssTranslate) {
             // 只有允许动画时才会scroll也translate,否则只会改变downHeight
             return;
@@ -111,8 +111,9 @@ class Scroll {
 
         wrap.style.webkitTransitionDuration = `${translateDuration}ms`;
         wrap.style.transitionDuration = `${translateDuration}ms`;
-        wrap.style.webkitTransform = `translate(0px, ${translateY}px) translateZ(0px)`;
-        wrap.style.transform = `translate(0px, ${translateY}px) translateZ(0px)`;
+        wrap.style.webkitTransform = `translate(0px, ${translateY}px)`;
+        wrap.style.transform = `translate(0px, ${translateY}px)`;
+        wrap.style.fontSmoothing = 'antialiased';
     }
 
     _scrollWrapAnimation() {
@@ -144,8 +145,8 @@ class Scroll {
 
         scrollWrap.addEventListener('touchstart', touchstartEvent);
         scrollWrap.addEventListener('mousedown', touchstartEvent);
-        
-        
+
+
         // 触摸结束
         const touchendEvent = () => {
             const options = this.options;
@@ -198,11 +199,11 @@ class Scroll {
                 // 当前第一个手指距离列表顶部的距离
                 const curY = e.touches ? e.touches[0].pageY : e.clientY;
                 const curX = e.touches ? e.touches[0].pageX : e.clientX;
-                
+
                 // 手指滑出屏幕触发刷新
                 if (curY > docClientHeight) {
                     touchendEvent(e);
-                    
+
                     return;
                 }
 
@@ -297,9 +298,9 @@ class Scroll {
             const options = this.options;
 
             this.events[EVENT_SCROLL] && this.events[EVENT_SCROLL](scrollTop);
-            
+
             let isAllowUploading = true;
-            
+
             if (this.upLoading) {
                 isAllowUploading = false;
             } else if (!options.down.isAways && this.downLoading) {
@@ -391,7 +392,7 @@ class Scroll {
 
         // 检测是否需要加载满屏
         this._loadFull();
-        
+
         this.events[EVENT_RESET_UP_LOADING] && this.events[EVENT_RESET_UP_LOADING]();
     }
 

@@ -1,5 +1,5 @@
 // http://eslint.org/docs/user-guide/configuring
-
+/*eslint linebreak-style: ["error", "windows"]*/
 module.exports = {
     'root': true,
     'extends': "airbnb",
@@ -29,6 +29,8 @@ module.exports = {
     },
     // add your custom rules here
     'rules': {
+        'linebreak-style': "off",
+        "import/extensions": "off",
         // 关闭react拓展
         'jsx-a11y/href-no-hash': 0,
         'react/require-extension': 0,
@@ -53,7 +55,7 @@ module.exports = {
         // 允许一个变量或多个变量的声明
         //'one-var': 0,
         // 允许++和--
-        'no-plusplus': 0,        
+        'no-plusplus': 0,
         // 文件末尾强制换行，目前暂时放弃，考虑到一些Idle的格式化问题
         'eol-last': 0,
         //强制使用一致的缩进，4个空格

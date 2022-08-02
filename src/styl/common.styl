@@ -2,7 +2,7 @@
  * minirefresh 的样式
  */
 
-.minirefresh-wrap 
+.minirefresh-wrap
     position: absolute;
     /*
      * 标明了top和bottom  滑动的就是minirefresh-wrap而不再是document.body
@@ -33,7 +33,7 @@
  * 但是不会包含下拉刷新动画
  */
 
-.minirefresh-scroll 
+.minirefresh-scroll
     position: relative;
     /*
      * 默认背景色改成白色，直接避免下拉和正文重叠现象，可以覆盖
@@ -46,7 +46,7 @@
  * 默认这时候会覆盖minirefresh-wrap
  */
 
-.body-scroll-wrap 
+.body-scroll-wrap
     position: relative;
 
 
@@ -59,13 +59,12 @@
  * 容器有复杂动画时可以开启
  */
 
-.minirefresh-hardware-speedup 
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    transform: translateZ(0);
+.minirefresh-hardware-speedup
+    font-smoothing: antialiased;
 
 
-.minirefresh-hidden 
+
+.minirefresh-hidden
     display: none !important;
 
 
@@ -81,19 +80,19 @@
     &::-webkit-scrollbar-track
         background-color: transparent;
     /*
-     * 滚动条轨道宽度 
+     * 滚动条轨道宽度
      * */
     &::-webkit-scrollbar
         width: 6px;
-        
+
 .minirefresh-hide-scrollbar
     /*
-     * 滚动条轨道宽度 
+     * 滚动条轨道宽度
      * */
     &::-webkit-scrollbar
         width: 0;
-        
-.minirefresh-wrap      
+
+.minirefresh-wrap
     /*
      * 滚动条游标
      * */
@@ -108,40 +107,40 @@
             background-color: #aaa;
 
 @keyframes minirefresh-fade-in
-    0% 
+    0%
         opacity: 0;
-    100% 
+    100%
         opacity: 1;
-    
+
 
 @keyframes minirefresh-fade-out
-    0% 
+    0%
         opacity: 1;
-    100% 
+    100%
         opacity: 0;
 
 @keyframes minirefresh-rotate
-    0% 
+    0%
         -webkit-transform: rotateZ(0deg);
         transform: rotateZ(0deg);
         -moz-transform: rotate(0deg);
-    100% 
+    100%
         -webkit-transform: rotateZ(360deg);
         transform: rotateZ(360deg);
         -moz-transform: rotate(360deg);
 
 
-.minirefresh-rotate 
+.minirefresh-rotate
     -webkit-animation: minirefresh-rotate 0.6s linear infinite;
     animation: minirefresh-rotate 0.6s linear infinite;
 
 
-.minirefresh-fade-in 
+.minirefresh-fade-in
     -webkit-animation: minirefresh-fade-in .5s linear forwards;
     animation: minirefresh-fade-in .5s linear forwards;
 
 
-.minirefresh-fade-out 
+.minirefresh-fade-out
     pointer-events: none;
     -webkit-animation: minirefresh-fade-out .5s linear forwards;
     animation: minirefresh-fade-out .5s linear forwards;
@@ -153,7 +152,7 @@
  * 由于totop和theme并列，所以这样取了
  */
 
-.minirefresh-totop 
+.minirefresh-totop
     position: fixed;
     z-index: 9990;
     right: 10px;

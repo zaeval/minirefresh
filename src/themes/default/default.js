@@ -133,7 +133,6 @@ class MiniRefreshTheme extends Core {
     _initDownWrap() {
         const container = this.container;
         const contentWrap = this.contentWrap;
-        const options = this.options;
 
         // 下拉的区域
         const downWrap = document.createElement('div');
@@ -142,14 +141,12 @@ class MiniRefreshTheme extends Core {
         downWrap.innerHTML = ` 
             <div class="downwrap-content">
                 <p class="downwrap-progress"></p>
-                <p class="downwrap-tips">${options.down.contentdown}</p>
             </div>
         `;
         container.insertBefore(downWrap, contentWrap);
 
         this.downWrap = downWrap;
         this.downWrapProgress = this.downWrap.querySelector('.downwrap-progress');
-        this.downWrapTips = this.downWrap.querySelector('.downwrap-tips');
         // 是否能下拉的变量，控制pull时的状态转变
         this.isCanPullDown = false;
         this.downWrapHeight = downWrap.offsetHeight || DEFAULT_DOWN_HEIGHT;
@@ -175,7 +172,6 @@ class MiniRefreshTheme extends Core {
 
     _initUpWrap() {
         const contentWrap = this.contentWrap;
-        const options = this.options;
 
         // 上拉区域
         const upWrap = document.createElement('div');
@@ -183,7 +179,6 @@ class MiniRefreshTheme extends Core {
         upWrap.className = `${CLASS_UP_WRAP} ${CLASS_HARDWARE_SPEEDUP}`;
         upWrap.innerHTML = ` 
             <p class="upwrap-progress"></p>
-            <p class="upwrap-tips">${options.up.contentdown}</p>
         `;
 
         upWrap.style.visibility = 'hidden';
@@ -192,7 +187,6 @@ class MiniRefreshTheme extends Core {
 
         this.upWrap = upWrap;
         this.upWrapProgress = this.upWrap.querySelector('.upwrap-progress');
-        this.upWrapTips = this.upWrap.querySelector('.upwrap-tips');
         MiniRefreshTheme._changeWrapStatusClass(this.upWrap, CLASS_STATUS_DEFAULT);
     }
 
@@ -223,17 +217,14 @@ class MiniRefreshTheme extends Core {
     }
 
     _pullHook(downHight, downOffset) {
-        const options = this.options;
         const FULL_DEGREE = 360;
 
         if (downHight < downOffset) {
             if (this.isCanPullDown) {
                 this.isCanPullDown = false;
                 MiniRefreshTheme._changeWrapStatusClass(this.downWrap, CLASS_STATUS_DEFAULT);
-                this.downWrapTips.innerText = options.down.contentdown;
             }
         } else if (!this.isCanPullDown) {
-            this.downWrapTips.innerText = options.down.contentover;
             this.isCanPullDown = true;
             MiniRefreshTheme._changeWrapStatusClass(this.downWrap, CLASS_STATUS_PULL);
         }
@@ -276,16 +267,12 @@ class MiniRefreshTheme extends Core {
         // 默认和contentWrap的同步
         this._transformDownWrap(-this.downWrapHeight + this.options.down.offset,
             this.options.down.bounceTime);
-        this.downWrapTips.innerText = this.options.down.contentrefresh;
         this.downWrapProgress.classList.add(CLASS_ROTATE);
         MiniRefreshTheme._changeWrapStatusClass(this.downWrap, CLASS_STATUS_LOADING);
     }
 
     _downLoaingSuccessHook(isSuccess, successTips) {
         this.options.down.contentsuccess = successTips || this.options.down.contentsuccess;
-        this.downWrapTips.innerText = isSuccess ?
-            this.options.down.contentsuccess :
-            this.options.down.contenterror;
         this.downWrapProgress.classList.remove(CLASS_ROTATE);
         this.downWrapProgress.classList.add(CLASS_FADE_OUT);
         this.downWrapProgress.classList.add(isSuccess ? CLASS_DOWN_SUCCESS : CLASS_DOWN_ERROR);
@@ -296,7 +283,6 @@ class MiniRefreshTheme extends Core {
     }
 
     _downLoaingEndHook(isSuccess) {
-        this.downWrapTips.innerText = this.options.down.contentdown;
         this.downWrapProgress.classList.remove(CLASS_ROTATE);
         this.downWrapProgress.classList.remove(CLASS_FADE_OUT);
         this.downWrapProgress.classList.remove(isSuccess ? CLASS_DOWN_SUCCESS : CLASS_DOWN_ERROR);
@@ -314,7 +300,6 @@ class MiniRefreshTheme extends Core {
 
     _upLoaingHook(isShowUpLoading) {
         if (isShowUpLoading) {
-            this.upWrapTips.innerText = this.options.up.contentrefresh;
             this.upWrapProgress.classList.add(CLASS_ROTATE);
             this.upWrapProgress.classList.remove(CLASS_HIDDEN);
             this.upWrap.style.visibility = 'visible';
@@ -328,12 +313,10 @@ class MiniRefreshTheme extends Core {
         if (!isFinishUp) {
             // 接下来还可以加载更多
             // this.upWrap.style.visibility = 'hidden';
-            this.upWrapTips.innerText = this.options.up.contentdown;
             MiniRefreshTheme._changeWrapStatusClass(this.upWrap, CLASS_STATUS_DEFAULT);
         } else {
             // 已经没有更多数据了
             // this.upWrap.style.visibility = 'visible';
-            this.upWrapTips.innerText = this.options.up.contentnomore;
             MiniRefreshTheme._changeWrapStatusClass(this.upWrap, CLASS_STATUS_NOMORE);
         }
         this.upWrapProgress.classList.remove(CLASS_ROTATE);
@@ -342,7 +325,6 @@ class MiniRefreshTheme extends Core {
 
     _resetUpLoadingHook() {
         // this.upWrap.style.visibility = 'hidden';
-        this.upWrapTips.innerText = this.options.up.contentdown;
         this.upWrapProgress.classList.remove(CLASS_ROTATE);
         this.upWrapProgress.classList.add(CLASS_HIDDEN);
         MiniRefreshTheme._changeWrapStatusClass(this.upWrap, CLASS_STATUS_DEFAULT);
