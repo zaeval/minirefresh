@@ -223,8 +223,10 @@ class Scroll {
 
                 // 如果锁定横向滑动并且横向滑动更多，阻止默认事件
                 if (options.isLockX && Math.abs(moveX) > Math.abs(moveY)) {
-                    e.preventDefault();
-
+                    // e.preventDefault();
+                    //
+                    // return;
+                    this.isMoveDown = false;
                     return;
                 }
 
